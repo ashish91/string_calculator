@@ -9,7 +9,7 @@ This repo is a solution to this [assessment](https://blog.incubyte.co/blog/tdd-a
 - Run `bundle`.
 - Run command `rspec spec`
 
-### Solutions
+### Assumptions
 
-- Using HashMap of length chars to delimiters - Less efficient
-- Using Trie of delimiters - More efficient
+- Delimiter cannot contain numbers or new line.
+- Delimiter cannot be minus '-' sign.
