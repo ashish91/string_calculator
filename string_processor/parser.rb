@@ -4,6 +4,7 @@ require_relative "../helper/trie.rb"
 
 require_relative "../exceptions/invalid_new_line_exception.rb"
 require_relative "../exceptions/negative_number_exception.rb"
+require_relative "../exceptions/invalid_delimiter_exception.rb"
 
 module StringProcessor
   class Parser
@@ -44,8 +45,10 @@ module StringProcessor
 
         curr_vals.each do |c_val|
           c_num = c_val.to_i
-          if c_num < 0 || !is_a_number?(c_val)
+          if is_neg_number?(c_val)
             raise NegativeNumberException.new
+          elsif !is_a_number?(c_val)
+            raise InvalidDelimiterException.new
           elsif c_num <= THRESHOLD_NUMBER
             nums.push(c_num)
           end
@@ -63,6 +66,10 @@ module StringProcessor
 
       def is_a_number?(val)
         /^[0-9]+$/.match(val)
+      end
+
+      def is_neg_number?(val)
+        /^-[0-9]+$/.match(val)
       end
 
   end

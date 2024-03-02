@@ -69,6 +69,10 @@ RSpec.describe do
       expect { Main.new("1,\n2").solve }.to raise_error(InvalidNewLineException)
     end
 
+    it "when there are invalid delimiters" do
+      expect{ Main.new("//[***]\n1*2*3" ).solve }.to raise_error(InvalidDelimiterException)
+    end
+
     it "when there are negative numbers" do
       expect{ Main.new("-1,2,3").solve }.to raise_error(NegativeNumberException)
     end
@@ -78,9 +82,16 @@ RSpec.describe do
     # end
   end
 
-  context "Multiple delimiters" do
-    it "" do
+  context "Add numbers with multiple delimiters" do
+
+    it "when there is a multiple delimiters" do
+      expect(Main.new("//[*][%]\n1*2%3").solve).to eq(6)
     end
+
+    it "when there is a multiple delimiters with multiple characters" do
+      expect(Main.new("//[***][%%%]\n1***2%%%3").solve).to eq(6)
+    end
+
   end
 
 end
