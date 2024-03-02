@@ -12,8 +12,5 @@ class Main
 
     sum = nums.reduce(0) { |num, sum| sum + num }
     sum
-    # nums = input.split(",")
-    # nums = nums.map(&:to_i)
-    # nums.reduce(0) { |sum, num| sum + num }
   end
 end

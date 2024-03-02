@@ -1,7 +1,10 @@
 require_relative 'delimiter_extractor.rb'
+require_relative "../helper/constants.rb"
 
 module StringProcessor
   class Parser
+    include Helper::Constants
+    include Helper::Common
 
     def parse(str, delim)
       arr = str.split(delim)
@@ -18,7 +21,7 @@ module StringProcessor
         #   raise Exception.new
         # end
 
-        raise Exception.new if val[0] == Helper::Constants::NEW_LINE
+        raise Exception.new if val[0] == NEW_LINE
         curr_vals = val.split(/\n/).reject(&:empty?)
 
         curr_vals.each do |c_val|
@@ -31,23 +34,17 @@ module StringProcessor
       end
 
       nums
-      # sum = 0
-      # curr = 0
-
-      # str.each_char do |ch|
-      #   if /[0-9]/.match(ch)
-      #     curr += ch.to_i
-      #   else
-      #     sum += curr
-      #   end
-      # end
-
-      # sum
     end
 
-    def is_a_number?(val)
-      /^[0-9]+$/.match(val)
-    end
+    private
+
+      def starts_with_new_line?(str)
+        is_char_new_line?(str[0])
+      end
+
+      def is_a_number?(val)
+        /^[0-9]+$/.match(val)
+      end
 
   end
 end

@@ -1,5 +1,5 @@
 module Helper
-  class Constants
+  module Constants
     DEFAULT_DELIMITER = ','
 
     NEW_LINE = "\n"
