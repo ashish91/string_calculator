@@ -1,6 +1,9 @@
 require_relative 'delimiter_extractor.rb'
 require_relative "../helper/constants.rb"
 
+require_relative "../exceptions/invalid_new_line_exception.rb"
+require_relative "../exceptions/negative_number_exception.rb"
+
 module StringProcessor
   class Parser
     include Helper::Constants
@@ -21,12 +24,12 @@ module StringProcessor
         #   raise Exception.new
         # end
 
-        raise Exception.new if val[0] == NEW_LINE
+        raise InvalidNewLineException.new if starts_with_new_line?(val)
         curr_vals = val.split(/\n/).reject(&:empty?)
 
         curr_vals.each do |c_val|
           if c_val.to_i < 0 || !is_a_number?(c_val)
-            raise Exception.new
+            raise NegativeNumberException.new
           else
             nums.push(c_val.to_i)
           end

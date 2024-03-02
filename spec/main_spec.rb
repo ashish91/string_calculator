@@ -1,5 +1,7 @@
 require 'rspec'
+
 require_relative '../main.rb'
+require_relative "../helper/constants.rb"
 
 RSpec.describe do
   subject { Main.new }
@@ -48,15 +50,15 @@ RSpec.describe do
 
   context "Throws exception for invalid cases" do
     it "when there is a new line after comma" do
-      expect { Main.new("1,\n").solve }.to raise_error(Exception)
+      expect { Main.new("1,\n").solve }.to raise_error(InvalidNewLineException)
     end
 
     it "when there is a new line after comma" do
-      expect { Main.new("1,\n2").solve }.to raise_error(Exception)
+      expect { Main.new("1,\n2").solve }.to raise_error(InvalidNewLineException)
     end
 
     it "when there are negative numbers" do
-      expect{ Main.new("-1,2,3").solve }.to raise_error(Exception)
+      expect{ Main.new("-1,2,3").solve }.to raise_error(NegativeNumberException)
     end
   end
 
