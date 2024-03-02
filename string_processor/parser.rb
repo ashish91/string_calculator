@@ -1,5 +1,6 @@
 require_relative 'delimiter_extractor.rb'
 require_relative "../helper/constants.rb"
+require_relative "../helper/trie.rb"
 
 require_relative "../exceptions/invalid_new_line_exception.rb"
 require_relative "../exceptions/negative_number_exception.rb"
@@ -9,8 +10,22 @@ module StringProcessor
     include Helper::Constants
     include Helper::Common
 
-    def parse(str, delim)
-      arr = str.split(delim)
+    def parse(delim_extractor)
+      simpler_str = ''
+      i = 0
+
+      while i < delim_extractor.input.length
+        delim_chars = delim_extractor.delim_trie.nearest_match(delim_extractor.input[i..])
+        if delim_chars > 0
+          i += delim_chars
+          simpler_str += ','
+        end
+        simpler_str += delim_extractor.input[i]
+
+        i += 1
+      end
+
+      arr = simpler_str.split(',')
 
       nums = []
       arr.each do |val|

@@ -7,8 +7,8 @@ class Main
   end
 
   def solve
-    @extractor.extract_delimiter!
-    nums = @parser.parse(@extractor.input, @extractor.delimiter)
+    @extractor.extract_delimiters!
+    nums = @parser.parse(@extractor)
 
     sum = nums.reduce(0) { |num, sum| sum + num }
     sum
