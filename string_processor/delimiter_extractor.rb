@@ -18,7 +18,10 @@ module StringProcessor
         delim, i = '', 2
 
         while !is_char_new_line?(self.input[i]) do
-          delim += self.input[i]
+          ch = self.input[i]
+          if ch != '[' && ch != ']'
+            delim += self.input[i]
+          end
           i += 1
         end
 

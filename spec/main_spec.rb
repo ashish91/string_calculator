@@ -26,6 +26,10 @@ RSpec.describe do
     it "when there are more than one digit numbers" do
       expect(Main.new("11,50,43,57").solve).to eq(161)
     end
+
+    it "ignores numbers greater than 1000" do
+      expect(Main.new("1100,5000,4300,5700").solve).to eq(0)
+    end
   end
 
   context "Adds numbers with new line" do
@@ -46,6 +50,14 @@ RSpec.describe do
     it "when there is a custom delimiter with single number" do
       expect(Main.new("//;\n1").solve).to eq(1)
     end
+
+    it "when there is a multiple character delimiter" do
+      expect(Main.new("//[***]\n1***2***3").solve).to eq(6)
+    end
+
+    it "when the delimiter is minus" do
+      expect(Main.new("//-\n1-2-3").solve).to eq(6)
+    end
   end
 
   context "Throws exception for invalid cases" do
@@ -60,6 +72,10 @@ RSpec.describe do
     it "when there are negative numbers" do
       expect{ Main.new("-1,2,3").solve }.to raise_error(NegativeNumberException)
     end
+
+    # it "when there are negative numbers and delimiter is minus" do
+    #   expect{ Main.new("//-\n-1-2-3").solve }.to raise_error(NegativeNumberException)
+    # end
   end
 
 end

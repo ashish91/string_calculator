@@ -28,10 +28,11 @@ module StringProcessor
         curr_vals = val.split(/\n/).reject(&:empty?)
 
         curr_vals.each do |c_val|
-          if c_val.to_i < 0 || !is_a_number?(c_val)
+          c_num = c_val.to_i
+          if c_num < 0 || !is_a_number?(c_val)
             raise NegativeNumberException.new
-          else
-            nums.push(c_val.to_i)
+          elsif c_num <= THRESHOLD_NUMBER
+            nums.push(c_num)
           end
         end
       end
